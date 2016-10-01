@@ -1,1 +1,5 @@
-<h1>Hello World!</h1>
+<ul>
+  <%= for product <- @products do %>
+    <li><%= link product.title , to: admin_product_path(@conn, :show, product.id) %></li>
+  <% end %>
+</ul>

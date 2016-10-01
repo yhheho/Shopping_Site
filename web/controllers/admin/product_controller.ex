@@ -3,8 +3,14 @@ defmodule ShoppingSite.Admin.ProductController do
 
   alias ShoppingSite.Product
 
-  def index(conn, params) do
-    render conn, "index.html"
+  def index(conn, _params) do
+    products = Repo.all(Product)
+    render conn, "index.html", products: products
+  end
+
+  def show(conn, %{"id" => id}) do
+    product = Repo.get(ShoppingSite.Product, id)
+    render conn, "show.html", product: product
   end
 
   def new(conn, params) do
