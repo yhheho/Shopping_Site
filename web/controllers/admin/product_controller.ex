@@ -1,6 +1,9 @@
 defmodule ShoppingSite.Admin.ProductController do
   use ShoppingSite.Web, :controller
 
+  import ShoppingSite.UserController, only: [authenticate: 2]
+  plug :authenticate #when action in [:index, :show]
+
   alias ShoppingSite.Product
 
   def index(conn, _params) do
@@ -13,7 +16,7 @@ defmodule ShoppingSite.Admin.ProductController do
     render conn, "show.html", product: product
   end
 
-  def new(conn, params) do
+  def new(conn, _params) do
     changeset = Product.changeset(%Product{})
     render conn, "new.html", changeset: changeset
   end

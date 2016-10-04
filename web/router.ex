@@ -7,6 +7,7 @@ defmodule ShoppingSite.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug ShoppingSite.Auth, repo: ShoppingSite.Repo
   end
 
   pipeline :api do

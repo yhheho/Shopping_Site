@@ -20,4 +20,16 @@ defmodule ShoppingSite.UserController do
         render conn, "new.html", changeset: changeset
     end
   end
+
+
+  def authenticate(conn, _params) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_flash(:error, "You must log in to access this page")
+      |> redirect(to: page_path(conn, :index))
+      |> halt
+    end
+  end
 end
