@@ -25,7 +25,7 @@ defmodule ShoppingSite.Admin.ProductController do
     changeset = Product.changeset(%Product{}, product_params)
 
     case Repo.insert(changeset) do
-      {:ok, product} ->
+      {:ok, _product} ->
         conn
         |> put_flash(:info, "Add product successfully")
         |> redirect(to: page_path(conn, :index))

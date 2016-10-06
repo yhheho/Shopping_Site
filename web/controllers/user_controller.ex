@@ -13,6 +13,7 @@ defmodule ShoppingSite.UserController do
     case Repo.insert(changeset) do
       {:ok, user} ->
         conn
+        |> ShoppingSite.Auth.login(user)
         |> put_flash(:info, "#{user.username} created")
         |> redirect(to: page_path(conn, :index))
 
