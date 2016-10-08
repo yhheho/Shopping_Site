@@ -33,4 +33,6 @@ defmodule ShoppingSite.UserController do
       |> halt
     end
   end
+
+
 end

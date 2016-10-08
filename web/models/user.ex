@@ -6,6 +6,7 @@ defmodule ShoppingSite.User do
     field :username, :string
     field :encrypted_password, :string
     field :email, :string
+    field :admin, :boolean, default: false
 
     timestamps()
   end
@@ -35,4 +36,10 @@ defmodule ShoppingSite.User do
         changeset
     end
   end
+
+  @doc """
+  def is_admin(user) do
+    user.admin
+  end
+  """
 end

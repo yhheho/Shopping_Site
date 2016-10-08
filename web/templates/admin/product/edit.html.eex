@@ -1,0 +1,6 @@
+<h1>Edit new product</h1>
+
+<%= render "form.html", changeset: @changeset,
+                        action: admin_product_path(@conn, :update, @product) %>
+
+<%= link "Back" , to: page_path(@conn, :index) %>
