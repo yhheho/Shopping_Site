@@ -4,7 +4,7 @@ defmodule ShoppingSite.PhotoUploader do
   # Include ecto support (requires package arc_ecto installed):
   use Arc.Ecto.Definition
 
-  @versions [:original, :thumb]
+  @versions [:original, :thumb, :medium]
 
   # To add a thumbnail version:
   # @versions [:original, :thumb]
@@ -16,7 +16,11 @@ defmodule ShoppingSite.PhotoUploader do
 
   # Define a thumbnail transformation:
   def transform(:thumb, _) do
-    {:convert, "-strip -thumbnail 100x100^ -gravity center -extent 100x100 -format png", :png}
+    {:convert, "-strip -thumbnail 200x200^ -gravity center -extent 200x200 -format png", :png}
+  end
+
+  def transform(:medium, _) do
+    {:convert, "-strip -thumbnail 400x400^ -gravity center -extent 400x400 -format png", :png}
   end
 
   def __storage, do: Arc.Storage.Local
