@@ -8,6 +8,7 @@ defmodule ShoppingSite.SessionController do
   def delete(conn, _params) do
     conn
     |> ShoppingSite.Auth.logout
+    |> put_flash(:info, "logging out!")
     |> redirect(to: page_path(conn, :index))
   end
 
