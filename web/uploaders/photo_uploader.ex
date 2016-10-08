@@ -4,7 +4,7 @@ defmodule ShoppingSite.PhotoUploader do
   # Include ecto support (requires package arc_ecto installed):
   use Arc.Ecto.Definition
 
-  @versions [:original]
+  @versions [:original, :thumb]
 
   # To add a thumbnail version:
   # @versions [:original, :thumb]
@@ -16,7 +16,7 @@ defmodule ShoppingSite.PhotoUploader do
 
   # Define a thumbnail transformation:
   def transform(:thumb, _) do
-    {:convert, "-strip -thumbnail 250x250^ -gravity center -extent 250x250 -format png", :png}
+    {:convert, "-strip -thumbnail 100x100^ -gravity center -extent 100x100 -format png", :png}
   end
 
   def __storage, do: Arc.Storage.Local
@@ -29,7 +29,7 @@ defmodule ShoppingSite.PhotoUploader do
 
   # Override the storage directory:
   # def storage_dir(version, {file, scope}) do
-  #   "uploads/user/avatars/#{scope.id}"
+  #   "uploads/#{scope.id}"
   # end
 
   # Provide a default URL if there hasn't been a file uploaded
