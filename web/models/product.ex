@@ -7,6 +7,8 @@ defmodule ShoppingSite.Product do
     field :quantity, :integer
     field :price, :integer
 
+    field :photo, :string, default: ""
+
     timestamps()
   end
 
