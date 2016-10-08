@@ -36,10 +36,4 @@ defmodule ShoppingSite.User do
         changeset
     end
   end
-
-  @doc """
-  def is_admin(user) do
-    user.admin
-  end
-  """
 end

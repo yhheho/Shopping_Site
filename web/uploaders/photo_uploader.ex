@@ -2,7 +2,7 @@ defmodule ShoppingSite.PhotoUploader do
   use Arc.Definition
 
   # Include ecto support (requires package arc_ecto installed):
-  # use Arc.Ecto.Definition
+  use Arc.Ecto.Definition
 
   @versions [:original]
 
@@ -15,10 +15,13 @@ defmodule ShoppingSite.PhotoUploader do
   # end
 
   # Define a thumbnail transformation:
-  # def transform(:thumb, _) do
-  #   {:convert, "-strip -thumbnail 250x250^ -gravity center -extent 250x250 -format png", :png}
-  # end
+  def transform(:thumb, _) do
+    {:convert, "-strip -thumbnail 250x250^ -gravity center -extent 250x250 -format png", :png}
+  end
 
+  def __storage, do: Arc.Storage.Local
+
+  def filename(version,  {file, scope}), do: "#{version}-#{file.file_name}"
   # Override the persisted filenames:
   # def filename(version, _) do
   #   version

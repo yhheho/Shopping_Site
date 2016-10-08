@@ -1,5 +1,6 @@
 defmodule ShoppingSite.Product do
   use ShoppingSite.Web, :model
+  use Arc.Ecto.Schema
 
   schema "products" do
     field :title, :string
@@ -7,7 +8,7 @@ defmodule ShoppingSite.Product do
     field :quantity, :integer
     field :price, :integer
 
-    field :photo, :string, default: ""
+    field :photo, ShoppingSite.PhotoUploader.Type
 
     timestamps()
   end
@@ -15,12 +16,16 @@ defmodule ShoppingSite.Product do
   @required_fields ~w(title description quantity price)
   @optional_fields ~w()
 
+  @required_photo_fields ~w()
+  @optional_photo_fields ~w(photo)
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """
   def changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> cast_attachments(params, [:photo])
     |> validate_required([:title, :description, :quantity, :price])
     |> validate_length(:description, max: 200)
   end
