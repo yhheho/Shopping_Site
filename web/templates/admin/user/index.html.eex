@@ -1,0 +1,30 @@
+<%= render ShoppingSite.LayoutView, "admin.html" , conn: @conn %>
+
+<h2>User list</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Email</th>
+      <th>authoroty</th>
+      <th>operation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for user <- @users do %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.email %></td>
+        <td><%= show_authority(user) %></td>
+        <td>
+          <%= if is_admin(user) do %>
+            <%= link "To normal user", to: "#", class: "btn btn-info" %>
+          <% else %>
+            <%= link "To Admin", to: "#", class: "btn btn-primary" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
