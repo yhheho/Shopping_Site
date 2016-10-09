@@ -4,4 +4,5 @@ defmodule ShoppingSite.Admin.ProductView do
   def present?(photo) do
     photo.file_name != ""
   end
+
 end

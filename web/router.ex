@@ -26,6 +26,7 @@ defmodule ShoppingSite.Router do
     pipe_through :browser
 
     resources "/products", ProductController
+    resources "/users", UserManagementController
   end
 
   # Other scopes may use custom stacks.

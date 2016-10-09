@@ -1,0 +1,4 @@
+<%# <h1>Admin part!!!!</h1> %>
+
+<%= link "product" , to: admin_product_path(@conn, :index), class: "btn btn-primary" %>
+

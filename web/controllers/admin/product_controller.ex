@@ -8,7 +8,9 @@ defmodule ShoppingSite.Admin.ProductController do
 
   def index(conn, _params) do
     products = Repo.all(Product)
+    #ShoppingSite.LayoutView.render("admin.html")
     render conn, "index.html", products: products
+
   end
 
   def show(conn, %{"id" => id}) do
