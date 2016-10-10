@@ -1,0 +1,35 @@
+<%= render ShoppingSite.LayoutView, "admin.html" , conn: @conn %>
+
+<h2>Product list</h2>
+
+<%= link "Photo view" , to: admin_product_path(@conn, :index), class: "btn btn-md btn-default" %>
+
+<%= link "Add product", to: admin_product_path(@conn, :new), class: "btn btn-md btn-default" %>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Description</th>
+      <th>Operation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for product <- @products do %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.title %></td>
+        <td><%= product.price %></td>
+        <td><%= product.quantity %></td>
+        <td><%= product.description %></td>
+        <td>
+          <%= link "Edit", to: admin_product_path(@conn, :edit, product), class: "btn btn-xs btn-info" %>
+          <%= link "Delete", to: admin_product_path(@conn, :delete, product.id), method: :delete, class: "btn btn-xs btn-danger" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

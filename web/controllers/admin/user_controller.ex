@@ -26,6 +26,4 @@ defmodule ShoppingSite.Admin.UserController do
     |> render("index.html", users: users)
   end
 
-
-
 end
