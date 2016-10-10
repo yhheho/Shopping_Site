@@ -38,4 +38,16 @@ defmodule ShoppingSite.Auth do
         {:error, :not_found, conn}
     end
   end
+
+  def admin_required(conn, _params) do
+    if conn.assigns.current_user.admin do
+      conn
+    else
+      conn
+        |> put_flash(:error, "You don't have this permission")
+        |> redirect(to: ShoppingSite.Router.Helpers.page_path(conn, :index))
+        |> halt
+    end
+  end
+
 end

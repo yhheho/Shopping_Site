@@ -4,7 +4,10 @@ defmodule ShoppingSite.Admin.UserController do
   alias ShoppingSite.User
 
   import ShoppingSite.UserController, only: [authenticate: 2]
+  import ShoppingSite.Auth, only: [admin_required: 2]
   plug :authenticate
+  plug :admin_required
+
 
 
   def index(conn, _params) do
@@ -22,5 +25,7 @@ defmodule ShoppingSite.Admin.UserController do
     conn
     |> render("index.html", users: users)
   end
+
+
 
 end

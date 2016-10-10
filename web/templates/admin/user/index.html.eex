@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th>#</th>
+      <th>Name</th>
       <th>Email</th>
       <th>authoroty</th>
       <th>operation</th>
@@ -15,6 +16,7 @@
     <%= for user <- @users do %>
       <tr>
         <td><%= user.id %></td>
+        <td><%= user.username %></td>
         <td><%= user.email %></td>
         <td><%= show_authority(user) %></td>
         <td>
