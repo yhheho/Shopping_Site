@@ -20,7 +20,7 @@ defmodule ShoppingSite.PhotoUploader do
   end
 
   def transform(:medium, _) do
-    {:convert, "-strip -thumbnail 400x400^ -gravity center -extent 400x400 -format png", :png}
+    {:convert, "-strip -thumbnail 300x300^ -gravity center -extent 300x300 -format png", :png}
   end
 
   def __storage, do: Arc.Storage.Local

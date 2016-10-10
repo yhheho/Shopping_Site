@@ -3,3 +3,11 @@
 $icon-font-path: "/fonts/"; /* use fonts from priv/static/fonts/ */
 @import "bootstrap"; /* imports node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss */
 
+.product-price {
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  font-size: 30px;
+  font-weight: bold;
+  color: #ff007c;
+}

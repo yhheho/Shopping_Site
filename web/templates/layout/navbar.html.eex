@@ -13,7 +13,9 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-
+        <li class="">
+          <a href="#" class="button">Cart (0)</a>
+        </li>
         <%= if !@conn.assigns.current_user do %>
           <li><%= link "Log In" , to: session_path(@conn, :new) %></li>
           <li><%= link "Register" , to: user_path(@conn, :new) %></li>
