@@ -19,9 +19,9 @@
         <td><%= show_authority(user) %></td>
         <td>
           <%= if is_admin(user) do %>
-            <%= link "To normal user", to: "#", class: "btn btn-info" %>
+            <%= link "to normal user" , to: admin_user_path(@conn, :change_authority, user.id), class: "btn btn-info" %>
           <% else %>
-            <%= link "To Admin", to: "#", class: "btn btn-primary" %>
+            <%= link "to Admin", to: admin_user_path(@conn, :change_authority, user.id), class: "btn btn-primary" %>
           <% end %>
         </td>
       </tr>

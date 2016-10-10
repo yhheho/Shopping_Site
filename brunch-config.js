@@ -2,15 +2,15 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "js/app.js",
-      order: {
-        before: [
-          "dist/js/jquery.min.js"
-        ],
-        after: [
-          "web/static/js/app.js" // concat app.js last
-        ]
-      }
+      joinTo: "js/app.js"//,
+      // order: {
+      //   before: [
+      //     "dist/js/jquery.min.js"
+      //   ],
+      //   after: [
+      //     "web/static/js/app.js" // concat app.js last
+      //   ]
+      // }
     },
     stylesheets: {
       joinTo: "css/app.css",

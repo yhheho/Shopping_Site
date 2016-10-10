@@ -36,4 +36,5 @@ defmodule ShoppingSite.User do
         changeset
     end
   end
+
 end

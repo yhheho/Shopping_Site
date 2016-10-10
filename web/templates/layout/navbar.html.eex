@@ -23,7 +23,7 @@
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= button "Log out", to: session_path(@conn, :delete, @conn.assigns.current_user), method: "delete"%></li>
+              <li><%= link "Log out", to: session_path(@conn, :delete, @conn.assigns.current_user), method: :delete %></li>
             </ul>
           </li>
         <% end %>
