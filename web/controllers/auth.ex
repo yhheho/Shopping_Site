@@ -3,6 +3,7 @@ defmodule ShoppingSite.Auth do
   import Phoenix.Controller
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
+
   def init(opts) do
     Keyword.fetch!(opts, :repo)
   end
@@ -14,10 +15,13 @@ defmodule ShoppingSite.Auth do
   end
 
   def login(conn, user) do
+
+    #ShoppingSite.CartPlugController.call(conn, ShoppingSite.Repo)
+
     conn
-    |> assign(:current_user, user)
-    |> put_session(:user_id, user.id)
-    |> configure_session(renew: true)
+      |> assign(:current_user, user)
+      |> put_session(:user_id, user.id)
+      |> configure_session(renew: true)
   end
 
   def logout(conn) do
@@ -49,5 +53,9 @@ defmodule ShoppingSite.Auth do
         |> halt
     end
   end
+
+  # def find_cart(conn, _user) do
+
+  # end
 
 end

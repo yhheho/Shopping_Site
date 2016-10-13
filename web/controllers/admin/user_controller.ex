@@ -11,17 +11,17 @@ defmodule ShoppingSite.Admin.UserController do
 
 
   def index(conn, _params) do
-    users = Repo.all(ShoppingSite.User)
+    users = Repo.all(User)
     render conn, "index.html", users: users
   end
 
   def change_authority(conn, %{"id" => id}) do
 
-    extracted_user = Repo.get!(ShoppingSite.User, id)
+    extracted_user = Repo.get!(User, id)
     Ecto.Changeset.change(extracted_user, %{admin: !extracted_user.admin})
       |> Repo.update
 
-    users = Repo.all(ShoppingSite.User)
+    users = Repo.all(User)
     conn
     |> render("index.html", users: users)
   end
