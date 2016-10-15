@@ -8,7 +8,7 @@ defmodule ShoppingSite.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug ShoppingSite.Auth, repo: ShoppingSite.Repo
-    plug ShoppingSite.CartPlugController, repo: ShoppingSite.Repo
+    #plug ShoppingSite.CartPlugController, repo: ShoppingSite.Repo
   end
 
   pipeline :api do
@@ -21,6 +21,7 @@ defmodule ShoppingSite.Router do
     get "/", PageController, :index
     resources "/users", UserController, only: [:index, :show, :new, :create]
     resources "/sessions", SessionController, only: [:new, :create, :delete]
+    resources "/products", ProductController, only: [:index, :show]
   end
 
   scope "/admin", ShoppingSite.Admin, as: :admin do

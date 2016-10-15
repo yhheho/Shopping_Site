@@ -1,0 +1,18 @@
+<h1>Products</h1>
+
+<%= link "List View", to: admin_product_path(@conn, :list_view), class: "btn btn-md btn-default" %>
+<br>
+<br>
+
+<ul>
+  <%= for product <- @products do %>
+    <div class="col-xs-6 col-md-3">
+      <%= if present?(product.photo) do %>
+        <img class="thumbnail" src="<%= ShoppingSite.PhotoUploader.url({product.photo, product}, :thumb) %>"/>
+      <% else %>
+        <img class="thumbnail" src="http://placehold.it/200x200&text=No Pic"/>
+      <% end %>
+      <%= link product.title , to: admin_product_path(@conn, :show, product.id) %>  $<%= product.price %>
+    </div>
+  <% end %>
+</ul>

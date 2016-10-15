@@ -29,4 +29,9 @@ defmodule ShoppingSite.Product do
     |> validate_required([:title, :description, :quantity, :price])
     |> validate_length(:description, max: 200)
   end
+
+  def products_count(query) do
+    from product in query, select: count(product.id)
+  end
+
 end

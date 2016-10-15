@@ -9,12 +9,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active">
-          <%= link "Product" , to: admin_product_path(@conn, :index)%>
+          <%= link "Product" , to: product_path(@conn, :index)%>
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="">
-          <a href="#" class="button">Cart (0)</a>
+          <a href="#" class="button">Cart (<%= cart_item_count(@conn) %>)</a>
         </li>
         <%= if !@conn.assigns.current_user do %>
           <li><%= link "Log In" , to: session_path(@conn, :new) %></li>
@@ -26,7 +26,8 @@
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-              <li><%= button "Log out", to: session_path(@conn, :delete, @conn.assigns.current_user), method: :delete %></li>
+              <li><%= link "Log out", to: session_path(@conn, :delete, @conn.assigns.current_user), method: :delete %></li>
+              <li><%= link "Product Management", to: admin_product_path(@conn, :index) %></li>
             </ul>
           </li>
         <% end %>
