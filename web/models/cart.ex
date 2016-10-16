@@ -18,7 +18,4 @@ defmodule ShoppingSite.Cart do
     |> validate_required([])
   end
 
-  def add_product_to_cart(product) do
-
-  end
 end

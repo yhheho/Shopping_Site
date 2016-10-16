@@ -17,7 +17,6 @@ defmodule ShoppingSite.Auth do
     conn
       |> assign(:current_user, user)
       |> put_session(:user_id, user.id)
-      #|> ShoppingSite.CartController.find_cart
       |> configure_session(renew: true)
   end
 
