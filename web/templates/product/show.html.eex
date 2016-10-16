@@ -16,7 +16,7 @@
     <div> Quantity: <%= @product.quantity %></div>
     <div class="product-price"> $ <%= @product.price %></div>
     <div class="pull-right">
-      <%= link "Add to Cart" , to: "#", class: "btn btn-primary btn-lg btn-danger" %>
+      <%= link "Add to Cart" , to: product_add_to_cart_path(@conn, :add_to_cart, @product.id), class: "btn btn-primary btn-lg btn-danger" %>
     </div>
   </div>
 </div>
