@@ -6,6 +6,22 @@ defmodule ShoppingSite.CartController do
   alias ShoppingSite.Cart
   alias ShoppingSite.Repo
 
+
+  def index(conn, _params) do
+    cart_id = get_session(conn, :cart_id)
+    current_cart = Repo.get!(Cart, cart_id)
+    # cart_items =
+    #   Repo.preload(current_cart, :cart_items).cart_items
+
+    products =
+      Repo.preload(current_cart, :products).products
+    #Logger.debug cart_items |> length
+
+    render conn, "index.html", cart_items: cart_items, products: products
+  end
+
+
+
   # def current_cart(conn, _params) do
   #   cart_id = get_session(conn, :cart_id)
 

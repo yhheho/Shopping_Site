@@ -14,7 +14,9 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li class="">
-          <a href="#" class="button">Cart (<%= cart_item_count(@conn) %>)</a>
+          <%= link to: cart_path(@conn, :index) do %>
+            Cart (<%= cart_item_count(@conn) %>)
+          <% end %>
         </li>
         <%= if !@conn.assigns.current_user do %>
           <li><%= link "Log In" , to: session_path(@conn, :new) %></li>

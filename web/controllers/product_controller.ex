@@ -31,7 +31,7 @@ defmodule ShoppingSite.ProductController do
       {:ok, _cart_item} ->
         conn
         |> put_flash(:info, "add to cart successfully.")
-        |> redirect(to: product_path(conn, :index))
+        |> redirect(to: product_path(conn, :show, product_id))
       {:error, _changeset} ->
         render(conn, "show.html")
     end
