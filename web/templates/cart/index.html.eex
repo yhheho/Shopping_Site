@@ -30,5 +30,14 @@
         <% end %>
       </tbody>
     </table>
+
+    <br>
+
+    <div class="total clearfix">
+      <span class="pull-right">
+        <span> total <%= cart_total_price(@conn) %> </span>
+      </span>
+    </div>
+
   </div>
 </div>
