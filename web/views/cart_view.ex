@@ -1,7 +1,6 @@
 defmodule ShoppingSite.CartView do
   use ShoppingSite.Web, :view
 
-  require Logger
   alias ShoppingSite.Cart
   alias ShoppingSite.Repo
 
@@ -12,6 +11,10 @@ defmodule ShoppingSite.CartView do
     Repo.preload(current_cart, :products).products
       |> Enum.map(& &1.price)
       |> Enum.sum
+  end
+
+  def present?(photo) do
+    photo.file_name != ""
   end
 
 end

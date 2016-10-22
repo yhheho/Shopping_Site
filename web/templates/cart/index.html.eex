@@ -15,7 +15,11 @@
           <tr>
             <td>
               <%= link to: product_path(@conn, :show, product.id) do %>
-                photo
+                <%= if present?(product.photo) do %>
+                  <img class="thumbnail" src="<%= ShoppingSite.PhotoUploader.url({product.photo, product}, :thumb) %>"/>
+                <% else %>
+                  <img class="thumbnail" src="http://placehold.it/200x200&text=No Pic"/>
+                <% end %>
               <% end %>
             </td>
             <td>
