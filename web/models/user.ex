@@ -8,6 +8,7 @@ defmodule ShoppingSite.User do
     field :email, :string
     field :admin, :boolean, default: false
 
+    has_many :orders, ShoppingSite.Order
     timestamps()
   end
 

@@ -5,7 +5,11 @@ defmodule ShoppingSite.CartController do
 
   alias ShoppingSite.Cart
   alias ShoppingSite.Repo
+  alias ShoppingSite.Order
+  alias ShoppingSite.OrderInfo
 
+  import ShoppingSite.UserController, only: [authenticate: 2]
+  plug :authenticate when action in [:check_out]
 
   def index(conn, _params) do
     cart_id = get_session(conn, :cart_id)
@@ -18,6 +22,13 @@ defmodule ShoppingSite.CartController do
 
     render conn, "index.html", products: products
   end
+
+  def check_out(conn, _params) do
+    order_info_changeset = OrderInfo.changeset(%OrderInfo{})
+    order_changeset = Order.changeset(%Order{info: order_info_changeset})
+    render conn, "check_out.html", order_changeset: order_changeset
+  end
+
 
   def find_cart(conn) do
     cart_id = get_session(conn, :cart_id)

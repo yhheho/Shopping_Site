@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-12">
+    <h2> Order information </h2>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th width="80%">product information</th>
+          <th>price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for product <- get_cart_items(@conn) do %>
+          <tr>
+            <td>
+              <%= link to: product_path(@conn, :show, product.id) do %>
+                <%= product.title %>
+              <% end %>
+            </td>
+            <td>
+              <%= product.price %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="total clearfix">
+      <span class="pull-right">
+        total <%= cart_total_price(@conn) %>
+      </span>
+    </div>
+
+    <h2> Order information </h2>
+
+    <div class="order-form">
+      <%= render "order_form.html", changeset: @order_changeset, action: order_path(@conn, :create) %>
+    </div>
+
+  </div>
+</div>

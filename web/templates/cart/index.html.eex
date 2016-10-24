@@ -43,5 +43,10 @@
       </span>
     </div>
 
+    <div class="checkout clearfix">
+      <span class="pull-right">
+        <%= link "Check out", to: cart_check_out_path(@conn, :check_out, get_cart_id(@conn)), class: "btn btn-lg btn-danger" %>
+      </span>
+    </div>
   </div>
 </div>

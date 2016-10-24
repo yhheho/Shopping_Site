@@ -25,7 +25,11 @@ defmodule ShoppingSite.Router do
       get "/add_to_cart", ProductController, :add_to_cart, as: :add_to_cart
     end
 
-    resources "/carts", CartController, only: [:index]
+    resources "/carts", CartController, only: [:index] do
+      get "/check_out", CartController, :check_out, as: :check_out
+    end
+
+    resources "/orders", OrderController
   end
 
   scope "/admin", ShoppingSite.Admin, as: :admin do
