@@ -18,4 +18,14 @@ defmodule ShoppingSite.Cart do
     |> validate_required([])
   end
 
+  @doc """
+  debug session
+  alias ShoppingSite.Repo
+  alias ShoppingSite.Cart
+  cart = Repo.get Cart, 33
+  products_in_cart = Repo.all Ecto.assoc(cart, :products)
+  products_in_cart |> Enum.any?(& &1.id == 16)
+  """
+
+
 end

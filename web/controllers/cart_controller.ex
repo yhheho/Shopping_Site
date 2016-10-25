@@ -3,7 +3,6 @@ defmodule ShoppingSite.CartController do
 
   require Logger
 
-  alias ShoppingSite.Cart
   alias ShoppingSite.Repo
   alias ShoppingSite.Order
   alias ShoppingSite.OrderInfo
@@ -30,6 +29,5 @@ defmodule ShoppingSite.CartController do
   def current_cart(conn) do
     conn.assigns.current_cart
   end
-
 
 end

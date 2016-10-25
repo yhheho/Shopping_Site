@@ -43,9 +43,6 @@ defmodule ShoppingSite.OrderController do
 
 
   def get_total_price(conn) do
-    # cart_id = Plug.Conn.get_session(conn, :cart_id)
-    # current_cart = Repo.get!(Cart, cart_id)
-
     Repo.preload(current_cart(conn), :cart_items).cart_items
       |> Repo.preload(:product)
       |> Enum.map(& &1.product.price)
@@ -53,8 +50,6 @@ defmodule ShoppingSite.OrderController do
   end
 
   def build_item_cache(conn) do
-    # cart_id = Plug.Conn.get_session(conn, :cart_id)
-    # current_cart = Repo.get!(Cart, cart_id)
 
     products =
       Repo.preload(current_cart(conn), :cart_items).cart_items

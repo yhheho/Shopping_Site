@@ -26,6 +26,7 @@ defmodule ShoppingSite.CartPlug do
           conn
             |> put_session(:cart_id, cart.id)
             |> assign(:current_cart, cart)
+            |> configure_session(renew: true)
       end
     else
       Logger.debug "cart_id is not present"
@@ -42,6 +43,7 @@ defmodule ShoppingSite.CartPlug do
         conn
           |> put_session(:cart_id, cart.id)
           |> assign(:current_cart, cart)
+          |> configure_session(renew: true)
       {:error, _} ->
         conn
           # |> put_flash(:error, "cart init error.")
@@ -54,6 +56,5 @@ defmodule ShoppingSite.CartPlug do
       _   -> true
     end
   end
-
 
 end

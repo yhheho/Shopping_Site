@@ -2,6 +2,10 @@ defmodule ShoppingSite.Product do
   use ShoppingSite.Web, :model
   use Arc.Ecto.Schema
 
+  alias ShoppingSite.Repo
+
+  require Logger
+
   schema "products" do
     field :title, :string
     field :description, :string
@@ -30,8 +34,16 @@ defmodule ShoppingSite.Product do
     |> validate_length(:description, max: 200)
   end
 
-  def products_count(query) do
-    from product in query, select: count(product.id)
+
+  def product_include?(current_cart, product_id) do
+
+    {product_id_integer, _} = Integer.parse(product_id)
+
+    products_in_cart =
+      Repo.all assoc(current_cart, :products)
+
+    products_in_cart
+      |> Enum.any?(& &1.id == product_id_integer)
   end
 
 end
