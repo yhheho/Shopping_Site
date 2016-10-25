@@ -23,7 +23,7 @@ defmodule ShoppingSite.Admin.UserController do
 
     users = Repo.all(User)
     conn
-    |> render("index.html", users: users)
+      |> render("index.html", users: users)
   end
 
 end

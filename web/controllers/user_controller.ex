@@ -34,5 +34,4 @@ defmodule ShoppingSite.UserController do
     end
   end
 
-
 end

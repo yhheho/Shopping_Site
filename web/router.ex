@@ -8,7 +8,7 @@ defmodule ShoppingSite.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug ShoppingSite.Auth, repo: ShoppingSite.Repo
-    #plug ShoppingSite.CartPlugController, repo: ShoppingSite.Repo
+    plug ShoppingSite.CartPlug
   end
 
   pipeline :api do

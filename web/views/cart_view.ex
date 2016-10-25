@@ -4,11 +4,13 @@ defmodule ShoppingSite.CartView do
   alias ShoppingSite.Cart
   alias ShoppingSite.Repo
 
-  def cart_total_price(conn) do
-    cart_id = Plug.Conn.get_session(conn, :cart_id)
-    current_cart = ShoppingSite.Repo.get!(Cart, cart_id)
+  import ShoppingSite.CartController, only: [current_cart: 1]
 
-    Repo.preload(current_cart, :cart_items).cart_items
+  def cart_total_price(conn) do
+    # cart_id = Plug.Conn.get_session(conn, :cart_id)
+    # current_cart = ShoppingSite.Repo.get!(Cart, cart_id)
+
+    Repo.preload(current_cart(conn), :cart_items).cart_items
       |> Repo.preload(:product)
       |> Enum.map(& &1.product.price)
       |> Enum.sum
@@ -23,14 +25,16 @@ defmodule ShoppingSite.CartView do
   end
 
   def get_current_cart(conn) do
-    cart_id = Plug.Conn.get_session(conn, :cart_id)
-    Repo.get(Cart, cart_id)
+    # cart_id = Plug.Conn.get_session(conn, :cart_id)
+    # Repo.get(Cart, cart_id)
+    conn
+      |> current_cart
   end
 
   def get_cart_items(conn) do
-    current_cart = get_current_cart(conn)
+    # current_cart = get_current_cart(conn)
     products =
-      Repo.preload(current_cart, :products).products
+      Repo.preload(current_cart(conn), :products).products
   end
 
 end

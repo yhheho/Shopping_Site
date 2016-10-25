@@ -4,11 +4,13 @@ defmodule ShoppingSite.OrderController do
   require Logger
   alias ShoppingSite.Order
   alias ShoppingSite.OrderInfo
-  alias ShoppingSite.Cart
+  #alias ShoppingSite.Cart
   alias ShoppingSite.Repo
 
   import ShoppingSite.UserController, only: [authenticate: 2]
+  import ShoppingSite.CartController, only: [current_cart: 1]
   plug :authenticate when action in [:create]
+
 
 
   def create(conn, %{"order" => order_params}) do
@@ -28,7 +30,7 @@ defmodule ShoppingSite.OrderController do
           conn
           |> put_flash(:info, "Order created successfully.")
           |> redirect(to: cart_path(conn, :index))
-        {:error, changeset} ->
+        {:error, order_changeset} ->
           render(conn, "index.html", changeset: order_changeset)
       end
     else
@@ -41,19 +43,27 @@ defmodule ShoppingSite.OrderController do
 
 
   def get_total_price(conn) do
-    cart_id = Plug.Conn.get_session(conn, :cart_id)
-    current_cart = Repo.get!(Cart, cart_id)
+    # cart_id = Plug.Conn.get_session(conn, :cart_id)
+    # current_cart = Repo.get!(Cart, cart_id)
 
-    Repo.preload(current_cart, :cart_items).cart_items
+    Repo.preload(current_cart(conn), :cart_items).cart_items
       |> Repo.preload(:product)
       |> Enum.map(& &1.product.price)
       |> Enum.sum
   end
 
   def build_item_cache(conn) do
-    cart_id = Plug.Conn.get_session(conn, :cart_id)
-    current_cart = Repo.get!(Cart, cart_id)
+    # cart_id = Plug.Conn.get_session(conn, :cart_id)
+    # current_cart = Repo.get!(Cart, cart_id)
 
+    products =
+      Repo.preload(current_cart(conn), :cart_items).cart_items
+        |> Repo.preload(:product)
+        |> Enum.map(& &1.product)
+
+    for item <- products do
+
+    end
 
   end
 
