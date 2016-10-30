@@ -29,7 +29,7 @@ defmodule ShoppingSite.Router do
       get "/check_out", CartController, :check_out, as: :check_out
     end
 
-    resources "/orders", OrderController
+    resources "/orders", OrderController, param: "token"
   end
 
   scope "/admin", ShoppingSite.Admin, as: :admin do

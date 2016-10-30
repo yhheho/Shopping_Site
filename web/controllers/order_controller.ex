@@ -44,13 +44,14 @@ defmodule ShoppingSite.OrderController do
   end
 
 
-  def show(conn, %{"id" => id}) do
-    order = Repo.get!(Order, id)
+  # def show(conn, %{"id" => id}) do
+  def show(conn, %{"token" => token}) do
+    #order = Repo.get!(Order, id)
+    order = Repo.get_by(Order, token: token)
     order_info = Repo.preload(order, :info).info
     order_items = Repo.preload(order, :items).items
     render conn, "show.html", order: order, order_info: order_info, order_items: order_items
   end
-
 
 
   def get_total_price(conn) do
@@ -82,7 +83,6 @@ defmodule ShoppingSite.OrderController do
           render(conn, "show.html")
       end
     end
-
   end
 
 end
