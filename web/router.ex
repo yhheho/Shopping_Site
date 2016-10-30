@@ -29,7 +29,9 @@ defmodule ShoppingSite.Router do
       get "/check_out", CartController, :check_out, as: :check_out
     end
 
-    resources "/orders", OrderController, param: "token"
+    resources "/orders", OrderController, param: "token" do
+      get "/pay_with_credit_card", OrderController, :pay_with_credit_card, as: :pay_with_credit_card
+    end
   end
 
   scope "/admin", ShoppingSite.Admin, as: :admin do

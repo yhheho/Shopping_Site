@@ -16,12 +16,11 @@ defmodule ShoppingSite.OrderController do
 
   def create(conn, %{"order" => order_params}) do
 
-    #IO.inspect order_params[:info]
-
     new_order_params =
       order_params
         |> Map.put("user_id", Integer.to_string(conn.assigns.current_user.id))
         |> Map.put("total", Integer.to_string(get_total_price(conn)))
+        # |> Map.put("is_paid", "false")
 
     order_changeset =
       Order.changeset(%Order{}, new_order_params)
@@ -43,16 +42,22 @@ defmodule ShoppingSite.OrderController do
     end
   end
 
-
-  # def show(conn, %{"id" => id}) do
   def show(conn, %{"token" => token}) do
-    #order = Repo.get!(Order, id)
     order = Repo.get_by(Order, token: token)
     order_info = Repo.preload(order, :info).info
     order_items = Repo.preload(order, :items).items
     render conn, "show.html", order: order, order_info: order_info, order_items: order_items
   end
 
+  def pay_with_credit_card(conn, %{"order_token" => token}) do
+    order = Repo.get_by(Order, token: token)
+    set_payment_method(order, "credit_card")
+    set_paid(order)
+
+    conn
+      |> put_flash(:info, "Paid successfully!")
+      |> redirect(to: order_path(conn, :show, order.token))
+  end
 
   def get_total_price(conn) do
     Repo.preload(current_cart(conn), :cart_items).cart_items
@@ -74,7 +79,8 @@ defmodule ShoppingSite.OrderController do
     for item <- products do
       order_item_changeset =
         build_assoc(order, :items)
-          |> OrderItem.changeset(%{"product_name" => item.title, "price" => item.price, "quantity" => 1})
+          |> OrderItem.changeset(%{"product_name" => item.title,
+                                   "price" => item.price, "quantity" => 1})
 
       case Repo.insert(order_item_changeset) do
         {:ok, _order_item} ->
@@ -83,6 +89,16 @@ defmodule ShoppingSite.OrderController do
           render(conn, "show.html")
       end
     end
+  end
+
+  def set_payment_method(order, method) do
+    Ecto.Changeset.change(order, %{payment_method: method})
+      |> Repo.update
+  end
+
+  def set_paid(order) do
+    Ecto.Changeset.change(order, %{is_paid: true})
+      |> Repo.update
   end
 
 end

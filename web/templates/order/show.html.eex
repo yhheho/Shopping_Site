@@ -47,5 +47,15 @@
       </tbody>
     </table>
 
+    <%= if !@order.is_paid do %>
+      <div class="pull-right">
+        <%= link "Pay with Credit card",
+            to: order_pay_with_credit_card_path(@conn, :pay_with_credit_card, @order.token), class: "btn btn-lg btn-danger"%>
+        <%= link "Pay with ATM", to: "#", class: "btn btn-lg btn-danger" %>
+      </div>
+    <% else %>
+      <p class="text-center">this order is paid</p>
+    <% end %>
+
   </div>
 </div>

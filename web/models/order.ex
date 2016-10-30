@@ -6,9 +6,10 @@ defmodule ShoppingSite.Order do
   schema "orders" do
     field :token, :string
     field :total, :integer
+    field :is_paid, :boolean, default: false
+    field :payment_method, :string
 
     belongs_to :user, ShoppingSite.User
-
     has_many :items, ShoppingSite.OrderItem, on_delete: :delete_all
     has_one :info, ShoppingSite.OrderInfo, on_delete: :delete_all
 
@@ -30,7 +31,6 @@ defmodule ShoppingSite.Order do
   end
 
   def put_token(changeset) do
-    IO.inspect changeset
     case changeset.valid? do
       true ->
         put_change(changeset, :token, UUID.uuid4())
