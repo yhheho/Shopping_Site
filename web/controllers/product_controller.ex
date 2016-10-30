@@ -41,7 +41,6 @@ defmodule ShoppingSite.ProductController do
           render(conn, "show.html")
       end
     end
-
   end
 
 end
