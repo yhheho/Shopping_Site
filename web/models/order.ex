@@ -1,5 +1,6 @@
 defmodule ShoppingSite.Order do
   use ShoppingSite.Web, :model
+  # use Fsm, initial_state: :order_placed
 
   require IEx
 
@@ -8,6 +9,7 @@ defmodule ShoppingSite.Order do
     field :total, :integer
     field :is_paid, :boolean, default: false
     field :payment_method, :string
+    field :fsm_state, :string, default: "order_placed"
 
     belongs_to :user, ShoppingSite.User
     has_many :items, ShoppingSite.OrderItem, on_delete: :delete_all
@@ -38,4 +40,5 @@ defmodule ShoppingSite.Order do
         changeset
     end
   end
+
 end

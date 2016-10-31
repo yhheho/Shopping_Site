@@ -53,6 +53,7 @@ defmodule ShoppingSite.OrderController do
     order = Repo.get_by(Order, token: token)
     set_payment_method(order, "credit_card")
     set_paid(order)
+    make_payment(order)
 
     conn
       |> put_flash(:info, "Paid successfully!")
@@ -99,6 +100,60 @@ defmodule ShoppingSite.OrderController do
   def set_paid(order) do
     Ecto.Changeset.change(order, %{is_paid: true})
       |> Repo.update
+  end
+
+  def make_payment(order) do
+    state = order.fsm_state
+
+    case state do
+      "order_placed" ->
+        Ecto.Changeset.change(order, %{fsm_state: "paid"})
+          |> Repo.update
+      _ -> order
+    end
+  end
+
+  def ship(order) do
+    state = order.fsm_state
+
+    case state do
+      "paid" ->
+        Ecto.Changeset.change(order, %{fsm_state: "shipping"})
+          |> Repo.update
+    end
+  end
+
+  def deliver(order) do
+    state = order.fsm_state
+
+    case state do
+      "shipping" ->
+        Ecto.Changeset.change(order, %{fsm_state: "shipped"})
+          |> Repo.update
+    end
+  end
+
+  def return_good(order) do
+    state = order.fsm_state
+
+    case state do
+      "shipped" ->
+        Ecto.Changeset.change(order, %{fsm_state: "good_returned"})
+          |> Repo.update
+    end
+  end
+
+  def cancell_order(order) do
+    state = order.fsm_state
+
+    case state do
+      "paid" ->
+        Ecto.Changeset.change(order, %{fsm_state: "order_cancelled"})
+          |> Repo.update
+      "order_placed" ->
+        Ecto.Changeset.change(order, %{fsm_state: "order_cancelled"})
+          |> Repo.update
+    end
   end
 
 end

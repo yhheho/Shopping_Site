@@ -12,7 +12,7 @@
       <tbody>
         <%= for each_item <- @order_items do %>
           <tr>
-            <td> <%= each_item.product_name %></td>
+            <td><%= each_item.product_name %></td>
             <td><%= each_item.price %></td>
           </tr>
         <% end %>

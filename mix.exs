@@ -41,7 +41,8 @@ defmodule ShoppingSite.Mixfile do
      {:comeonin, "~> 2.0"},
      {:arc_ecto, "~> 0.4.4"},
      {:arc, "~> 0.5.3"},
-     {:uuid, "~> 1.1"}]
+     {:uuid, "~> 1.1"},
+     {:fsm, "~> 0.2.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
