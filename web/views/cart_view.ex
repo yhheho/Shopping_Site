@@ -20,11 +20,6 @@ defmodule ShoppingSite.CartView do
     Plug.Conn.get_session(conn, :cart_id)
   end
 
-  def get_current_cart(conn) do
-    conn
-      |> current_cart
-  end
-
   def get_cart_items(conn) do
     products =
       Repo.preload(current_cart(conn), :products).products

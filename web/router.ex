@@ -27,11 +27,14 @@ defmodule ShoppingSite.Router do
 
     resources "/carts", CartController, only: [:index] do
       get "/check_out", CartController, :check_out, as: :check_out
+      delete "/clean", CartController, :clean, as: :clean
     end
 
     resources "/orders", OrderController, param: "token" do
       get "/pay_with_credit_card", OrderController, :pay_with_credit_card, as: :pay_with_credit_card
     end
+
+    resources "/items", CartItemController, only: [:delete]
   end
 
   scope "/admin", ShoppingSite.Admin, as: :admin do

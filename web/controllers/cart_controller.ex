@@ -26,6 +26,16 @@ defmodule ShoppingSite.CartController do
     render conn, "check_out.html", order_changeset: order_changeset
   end
 
+  def clean(conn, _params) do
+    cart = current_cart(conn)
+    Repo.preload(current_cart(conn), :cart_items).cart_items
+      |> Enum.map(& Repo.delete(&1))
+
+    conn
+      |> put_flash(:info, "Cart cleaned")
+      |> redirect(to: cart_path(conn, :index))
+  end
+
   def current_cart(conn) do
     conn.assigns.current_cart
   end

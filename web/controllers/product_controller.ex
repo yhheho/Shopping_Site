@@ -29,8 +29,8 @@ defmodule ShoppingSite.ProductController do
     else
       product = Repo.get(Product, product_id)
       cart_item_changeset =
-      build_assoc(current_cart(conn), :cart_items)
-        |> CartItem.changeset(%{"cart_id" => current_cart(conn).id, "product_id" => product.id})
+        build_assoc(current_cart(conn), :cart_items)
+          |> CartItem.changeset(%{"cart_id" => current_cart(conn).id, "product_id" => product.id})
 
       case Repo.insert(cart_item_changeset) do
         {:ok, _cart_item} ->
