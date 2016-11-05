@@ -28,6 +28,7 @@ defmodule ShoppingSite.OrderController do
       case Repo.insert(order_changeset) do
         {:ok, order} ->
           build_order_item(conn, order)
+          ShoppingSite.Cart.clean_cart_items(current_cart(conn))
           conn
             |> put_flash(:info, "Order created successfully.")
             |> redirect(to: cart_path(conn, :index))
@@ -56,7 +57,7 @@ defmodule ShoppingSite.OrderController do
 
     conn
       |> put_flash(:info, "Paid successfully!")
-      |> redirect(to: order_path(conn, :show, order.token))
+      |> redirect(to: account_order_path(conn, :index))
   end
 
   def get_total_price(conn) do
@@ -74,13 +75,14 @@ defmodule ShoppingSite.OrderController do
     products =
       Repo.preload(current_cart(conn), :cart_items).cart_items
         |> Repo.preload(:product)
-        |> Enum.map(& &1.product)
+        |> Enum.map(fn x -> %{product: x.product, quantity: x.quantity} end)
 
     for item <- products do
       order_item_changeset =
         build_assoc(order, :items)
-          |> OrderItem.changeset(%{"product_name" => item.title,
-                                   "price" => item.price, "quantity" => 1})
+          |> OrderItem.changeset(%{"product_name" => item[:product].title,
+                                   "price" => item[:product].price,
+                                   "quantity" => item[:quantity]})
 
       case Repo.insert(order_item_changeset) do
         {:ok, _order_item} ->

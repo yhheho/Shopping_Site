@@ -30,6 +30,7 @@
             <ul class="dropdown-menu">
               <li><%= link "Log out", to: session_path(@conn, :delete, @conn.assigns.current_user), method: :delete %></li>
               <li><%= link "Product Management", to: admin_product_path(@conn, :index) %></li>
+              <li><%= link "Orders", to: account_order_path(@conn, :index) %></li>
             </ul>
           </li>
         <% end %>

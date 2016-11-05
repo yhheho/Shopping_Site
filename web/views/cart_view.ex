@@ -25,19 +25,23 @@ defmodule ShoppingSite.CartView do
       Repo.preload(current_cart(conn), :products).products
   end
 
-  def get_cart_item(conn, id) do
+  def get_cart_item(conn, product) do
       Repo.preload(current_cart(conn), :cart_items).cart_items
-        |> Enum.find(fn x -> x.product_id == id end)
+        |> Enum.find(fn x -> x.product_id == product.id end)
   end
 
   def get_changeset(conn, product) do
     Repo.preload(current_cart(conn), :cart_items).cart_items
-        |> Enum.find(fn x -> x.product_id == product.id end)
-        |> ShoppingSite.CartItem.changeset(%{})
+      |> Enum.find(fn x -> x.product_id == product.id end)
+      |> ShoppingSite.CartItem.changeset(%{})
   end
 
-  def get_selections() do
-    [1, 2, 3, 4, 5]
+  def get_selections(conn, product) do
+    cart_item =
+      Repo.preload(current_cart(conn), :cart_items).cart_items
+        |> Enum.find(fn x -> x.product_id == product.id end)
+
+    1..cart_item.quantity |> Enum.to_list
   end
 
 end

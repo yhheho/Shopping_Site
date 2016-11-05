@@ -3,3 +3,5 @@
 <%= link "products" , to: admin_product_path(@conn, :index), class: "btn btn-primary" %>
 
 <%= link "users" , to: admin_user_path(@conn, :index), class: "btn btn-primary" %>
+
+<%= link "Orders", to: admin_order_path(@conn, :index), class: "btn btn-primary" %>

@@ -1,0 +1,19 @@
+<h2>Order list</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Generated time</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <%= for order <- @orders do %>
+      <tr>
+        <td><%= link "#{order.id}", to: order_path(@conn, :show, order.token)%></td>
+        <td><%= generated_time(order) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,22 @@
+<h2>Order list</h2>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>generated time</th>
+      <th>user</th>
+      <th>order status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for order <- @orders do %>
+      <tr>
+        <td><%= link "#{order.id}", to: admin_order_path(@conn, :show, order.id) %></td>
+        <td><%= generated_time(order) %></td>
+        <td><%= order.user.email %></td>
+        <td><%= order.fsm_state %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

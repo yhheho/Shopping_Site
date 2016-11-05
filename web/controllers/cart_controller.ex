@@ -5,6 +5,7 @@ defmodule ShoppingSite.CartController do
 
   alias ShoppingSite.Repo
   alias ShoppingSite.Order
+  alias ShoppingSite.Cart
   alias ShoppingSite.OrderInfo
 
   import ShoppingSite.UserController, only: [authenticate: 2]
@@ -27,8 +28,9 @@ defmodule ShoppingSite.CartController do
   end
 
   def clean(conn, _params) do
-    Repo.preload(current_cart(conn), :cart_items).cart_items
-      |> Enum.map(& Repo.delete(&1))
+    # Repo.preload(current_cart(conn), :cart_items).cart_items
+    #   |> Enum.map(& Repo.delete(&1))
+    Cart.clean_cart_items(current_cart(conn))
 
     conn
       |> put_flash(:info, "Cart cleaned")

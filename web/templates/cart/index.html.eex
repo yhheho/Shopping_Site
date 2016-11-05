@@ -42,10 +42,10 @@
             <td>
 
               <%= form_for get_changeset(@conn, product),
-                  cart_item_path(@conn, :update, get_cart_item(@conn, product.id)), fn f -> %>
+                  cart_item_path(@conn, :update, get_cart_item(@conn, product)), fn f -> %>
                 <%= label f, :quantity, "Quantity",
                     class: "control-label" %>
-                <%= select f, :quantity, get_selections(),
+                <%= select f, :quantity, get_selections(@conn, product),
                     class: "form-control", prompt: "Choose quantity" %>
                 <%= submit "Submit", class: "btn btn-primary pull-right" %>
               <% end %>

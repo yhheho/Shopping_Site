@@ -41,13 +41,18 @@ defmodule ShoppingSite.Router do
     pipe_through :browser
 
     resources "/products", ProductController
-
     resources "/users", UserController
+    resources "/orders", OrderController
 
     get "/change_authority/:id",  UserController, :change_authority
     get "/products_list_view", ProductController, :list_view
   end
 
+  scope "/account", ShoppingSite.Account, as: :account do
+    pipe_through :browser
+
+    resources "/orders", OrderController
+  end
   # Other scopes may use custom stacks.
   # scope "/api", ShoppingSite do
   #   pipe_through :api
