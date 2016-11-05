@@ -2,6 +2,7 @@ defmodule ShoppingSite.CartItemController do
   use ShoppingSite.Web, :controller
 
   alias ShoppingSite.Repo
+  alias ShoppingSite.CartItem
 
   require IEx
 
@@ -28,6 +29,31 @@ defmodule ShoppingSite.CartItemController do
     conn
       |> put_flash(:info, "Delete #{product.title} successfully.")
       |> redirect(to: cart_path(conn, :index))
+  end
+
+  def update(conn, %{"id" => id, "cart_item" => %{"quantity" => quantity}}) do
+
+    cart_item = Repo.get!(CartItem, id)
+
+    changeset =
+      cart_item
+        |> CartItem.changeset(%{})
+        |> Ecto.Changeset.change(quantity: String.to_integer(quantity))
+
+    if cart_item.quantity >= String.to_integer(quantity) do
+      case Repo.update(changeset) do
+        {:ok, _} ->
+          conn
+            |> put_flash(:info, "Update cart item successfully.")
+            |> redirect(to: cart_path(conn, :index))
+        {:error, _changeset} ->
+          render(conn, "cart/index.html")
+      end
+    else
+        conn
+          |> put_flash(:warning, "Not enough amount of product")
+          |> redirect(to: cart_path(conn, :index))
+    end
   end
 
 end

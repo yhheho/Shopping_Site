@@ -34,7 +34,7 @@ defmodule ShoppingSite.Router do
       get "/pay_with_credit_card", OrderController, :pay_with_credit_card, as: :pay_with_credit_card
     end
 
-    resources "/items", CartItemController, only: [:delete]
+    resources "/items", CartItemController, only: [:delete, :update]
   end
 
   scope "/admin", ShoppingSite.Admin, as: :admin do

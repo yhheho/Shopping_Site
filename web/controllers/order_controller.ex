@@ -4,7 +4,6 @@ defmodule ShoppingSite.OrderController do
   require Logger
   require IEx
   alias ShoppingSite.Order
-  alias ShoppingSite.OrderInfo
   alias ShoppingSite.OrderItem
   alias ShoppingSite.Repo
 

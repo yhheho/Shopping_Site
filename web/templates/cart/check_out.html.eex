@@ -11,6 +11,7 @@
       </thead>
       <tbody>
         <%= for product <- get_cart_items(@conn) do %>
+         之後要顯示數量所以要用 cart_item 做
           <tr>
             <td>
               <%= link to: product_path(@conn, :show, product.id) do %>

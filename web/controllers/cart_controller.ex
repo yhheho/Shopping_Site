@@ -11,8 +11,8 @@ defmodule ShoppingSite.CartController do
   plug :authenticate when action in [:check_out]
 
   def index(conn, _params) do
-    cart_items =
-      Repo.preload(current_cart(conn), :cart_items).cart_items
+    # cart_items =
+    #   Repo.preload(current_cart(conn), :cart_items).cart_items
 
     products =
       Repo.preload(current_cart(conn), :products).products
@@ -27,7 +27,6 @@ defmodule ShoppingSite.CartController do
   end
 
   def clean(conn, _params) do
-    cart = current_cart(conn)
     Repo.preload(current_cart(conn), :cart_items).cart_items
       |> Enum.map(& Repo.delete(&1))
 

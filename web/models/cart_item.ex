@@ -2,8 +2,7 @@ defmodule ShoppingSite.CartItem do
   use ShoppingSite.Web, :model
 
   schema "cart_items" do
-    #field :cart_id, :integer
-    #field :product_id, :integer
+    field :quantity, :integer, default: 1
 
     belongs_to :cart, ShoppingSite.Cart
     belongs_to :product, ShoppingSite.Product
