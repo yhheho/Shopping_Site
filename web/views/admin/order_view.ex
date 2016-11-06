@@ -5,4 +5,11 @@ defmodule ShoppingSite.Admin.OrderView do
     order.inserted_at
   end
 
+  def render_order_paid_state(order) do
+    if order.is_paid do
+      "Paid"
+    else
+      "Not paid"
+    end
+  end
 end

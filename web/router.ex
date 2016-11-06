@@ -42,7 +42,13 @@ defmodule ShoppingSite.Router do
 
     resources "/products", ProductController
     resources "/users", UserController
-    resources "/orders", OrderController
+
+    resources "/orders", OrderController do
+      post "/cancel", OrderController, :cancel
+      post "/ship", OrderController, :ship
+      post "/shipped", OrderController, :shipped
+      post "/return", OrderController, :return
+    end
 
     get "/change_authority/:id",  UserController, :change_authority
     get "/products_list_view", ProductController, :list_view

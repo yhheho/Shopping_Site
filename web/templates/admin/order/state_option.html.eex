@@ -1,0 +1,28 @@
+<div style="padding:10px; float:right;">
+  <%= case @order.fsm_state do %>
+    <%= "order_placed" -> %>
+      <%= link "Cancel order",
+          to: admin_order_order_path(@conn, :cancel, @order.id),
+          class: "btn btn-default btn-sm", method: :post %>
+    <%= "paid" -> %>
+      <%= link "Cancel order",
+          to: admin_order_order_path(@conn, :cancel, @order.id),
+          class: "btn btn-default btn-sm", method: :post %>
+      <%= link "Deliver products",
+          to: admin_order_order_path(@conn, :ship, @order.id),
+          class: "btn btn-default btn-sm", method: :post %>
+    <%= "shipping" -> %>
+      <%= link "set order as shipped",
+          to: admin_order_order_path(@conn, :shipped, @order.id),
+          class: "btn btn-default btn-sm", method: :post %>
+    <%= "shipped" -> %>
+      <%= link "return",
+          to: admin_order_order_path(@conn, :return, @order.id),
+          class: "btn btn-default btn-sm", method: :post %>
+    <%= "order_cancelled" -> %>
+      <span class="label label-default">this order was cancelled</span>
+
+    <%= "good_returned" -> %>
+      <span class="label label-default">products are returned</span>
+  <% end %>
+</div>
