@@ -1,6 +1,18 @@
 defmodule ShoppingSite.StateChangeController do
   use ShoppingSite.Web, :controller
 
+
+  def make_payment(order) do
+    state = order.fsm_state
+
+    case state do
+      "order_placed" ->
+        Ecto.Changeset.change(order, %{fsm_state: "paid"})
+          |> Repo.update
+      _ -> order
+    end
+  end
+
   def ship(order) do
     state = order.fsm_state
 
