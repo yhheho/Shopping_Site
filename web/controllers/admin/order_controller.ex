@@ -25,25 +25,25 @@ defmodule ShoppingSite.Admin.OrderController do
   end
 
   def ship(conn, %{"order_id" => order_id}) do
-    order = Repo.get(Order, order_id)
+    Repo.get(Order, order_id) #order
       |> StateChangeController.ship
     conn |> redirect(to: admin_order_path(conn, :show, order_id))
   end
 
   def shipped(conn, %{"order_id" => order_id}) do
-    order = Repo.get(Order, order_id)
-      |> StateChangeController.shipped
+    Repo.get(Order, order_id) #order
+      |> StateChangeController.deliver
     conn |> redirect(to: admin_order_path(conn, :show, order_id))
   end
 
   def cancel(conn, %{"order_id" => order_id}) do
-    order = Repo.get(Order, order_id)
+    Repo.get(Order, order_id) #order
       |> StateChangeController.cancell_order
     conn |> redirect(to: admin_order_path(conn, :show, order_id))
   end
 
   def return(conn, %{"order_id" => order_id}) do
-    order = Repo.get(Order, order_id)
+    Repo.get(Order, order_id) #order
       |> StateChangeController.return_good
     conn |> redirect(to: admin_order_path(conn, :show, order_id))
   end

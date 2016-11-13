@@ -24,9 +24,11 @@ config :logger, :console,
 
 config :shopping_site, ShoppingSite.Mailer,
   adapter: Bamboo.MailgunAdapter,
-  api_key: System.get_env("MAILGUN_USERNAME"),
-  domain: System.get_env("MAILGUN_PASSWORD")
+  api_key: System.get_env("MAILGUN_API_KEY"),
+  domain: System.get_env("MAILGUN_DOMAIN")
 
+config :shopping_site, mailgun_domain: System.get_env("MAILGUN_API_BASE_URL"),
+                       mailgun_key: System.get_env("MAILGUN_API_KEY")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

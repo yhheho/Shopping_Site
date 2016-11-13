@@ -19,7 +19,7 @@ defmodule ShoppingSite.Mixfile do
   def application do
     [mod: {ShoppingSite, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin, :bamboo]]
+                    :phoenix_ecto, :postgrex, :comeonin, :bamboo, :bamboo_smtp]]
   end
 
   # Specifies which paths to compile per environment.
@@ -43,7 +43,9 @@ defmodule ShoppingSite.Mixfile do
      {:arc, "~> 0.5.3"},
      {:uuid, "~> 1.1"},
      {:fsm, "~> 0.2.0"},
-     {:bamboo, "~> 0.5"}]
+     {:bamboo, "~> 0.5"},
+     {:bamboo_smtp, "~> 1.2.1", override: true},
+     {:mailgun, "~> 0.1.2"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

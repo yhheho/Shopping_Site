@@ -9,4 +9,10 @@ defmodule ShoppingSite.Email do
       |> text_body("Welcome to ShoppingSite!")
   end
 
+  def generate_email(email_address) do
+    new_email
+      |> to(email_address)
+
+  end
+
 end

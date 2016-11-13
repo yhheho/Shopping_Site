@@ -25,7 +25,7 @@ defmodule ShoppingSite.PhotoUploader do
 
   def __storage, do: Arc.Storage.Local
 
-  def filename(version,  {file, scope}), do: "#{version}-#{file.file_name}"
+  def filename(version,  {file, _scope}), do: "#{version}-#{file.file_name}"
   # Override the persisted filenames:
   # def filename(version, _) do
   #   version

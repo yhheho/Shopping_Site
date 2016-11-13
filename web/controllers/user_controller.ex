@@ -12,6 +12,13 @@ defmodule ShoppingSite.UserController do
 
     case Repo.insert(changeset) do
       {:ok, user} ->
+
+        user.email
+          |> ShoppingSite.Email.welcome_text_email
+          |> ShoppingSite.Mailer.deliver_now
+
+        # ShoppingSite.Mailer.send_welcome_text_email(user.email)
+
         conn
         |> ShoppingSite.Auth.login(user)
         |> put_flash(:info, "#{user.username} created")
